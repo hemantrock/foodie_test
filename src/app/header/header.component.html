@@ -5,8 +5,19 @@
         </div>
         <div class="col-sm-9">
             <ul class="d-flex menu" style="list-style: none;text-transform: uppercase; padding: 5px; float: right;">
-                <li routerLink="/dashboard">Home</li>
-
+                <li routerLink="/dashboard">
+                    Home
+                    <div style="position: fixed; width:max-content;" *ngIf="this.showop1 && wishlistItems != []">
+                        <!-- <h2>My Wishlist</h2> -->
+                        <ul class="wish">
+                        <li *ngFor="let item of wishlistItems">
+                            {{ item }}
+                            <button style="border-radius: 50px;" (click)="removeFromWishlist(item)">X</button>
+                        </li>
+                        </ul>
+                    </div>
+                </li>
+                <li (click)="this.showop1=!this.showop1" style="margin-left:25px">    Wish List</li>
                 <li *ngIf="this.common?.token !==null" (click)="this.showop=!this.showop">
                     <p style="margin-left:25px">{{user.name}}</p>
                     <span class="btn btn-sm btn-danger mr-5" *ngIf="this.showop" (click)="Logout()">Logout</span>

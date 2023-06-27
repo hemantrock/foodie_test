@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
+import { WishlistService } from '../services/wishlist.service';
 declare var $: any;
 
 
@@ -32,7 +33,8 @@ export class ReciepeComponent implements OnInit{
     public sharedService: ApiserviceService,
     public router: Router,
     private activatedRoute: ActivatedRoute,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private wishlistService: WishlistService
   ){
     const token = localStorage.getItem("user");
     // Check if the token is null
@@ -46,6 +48,40 @@ export class ReciepeComponent implements OnInit{
   ngOnInit() {
     this.List();
   }  
+
+  addToWishlist(name:any): void {
+    console.log("this.wishlistService.wishlistItems",this.wishlistService.wishlistItems)
+    if((this.wishlistService.wishlistItems).includes(name)){
+      this.toastr.warning("Recipe Already Added to Wishlist");  
+    }else{
+      this.wishlistService.addToWishlist(name);
+      this.toastr.success("Recipe Added to Wishlist");
+      console.log("name",name)
+      this.addtowishlist(name)
+    }
+  }
+
+  addtowishlist(id:any){
+    this.userdata.Wishlist.push(id)
+    const data={
+      name:this.userdata.name,
+      username:this.userdata.username,
+      Wishlist:this.userdata.Wishlist,
+    }
+    this.sharedService.post('user/update/'+this.userdata._id,data).subscribe((res:any) => {
+      if((res.data).length != 0 ){
+        localStorage.setItem('user',JSON.stringify({
+          _id:this.userdata._id,
+          name:this.userdata.name,
+          username:this.userdata.username,
+          Wishlist:this.userdata.Wishlist,
+        }))
+      }else{
+        console.log("No Data Found",res.data)
+      }
+    }, err => { return    });
+  }
+
   List() {
     this.sharedService.get('recipe/').subscribe((res:any) => {
       if((res.data).length != 0 ){
@@ -76,32 +112,6 @@ export class ReciepeComponent implements OnInit{
     }, err => {console.log(err.error)
 
     });
-  }
-
-  addtowishlist(id:any){
-    if((this.userdata.Wishlist).length != 0 ){
-      this.userdata.Wishlist.push(id)
-    }else{
-      this.userdata.Wishlist=[id]
-    }
-    const data={
-      name:this.userdata.name,
-      username:this.userdata.username,
-      Wishlist:this.userdata.Wishlist,
-    }
-    this.sharedService.post('user/update/'+this.userdata._id,data).subscribe((res:any) => {
-      if((res.data).length != 0 ){
-        localStorage.setItem('user',JSON.stringify({
-          _id:this.userdata._id,
-          name:this.userdata.name,
-          username:this.userdata.username,
-          Wishlist:this.userdata.Wishlist,
-        }))
-        this.toastr.success('Added Successfully', 'Success');
-      }else{
-        console.log("No Data Found",res.data)
-      }
-    }, err => {this.toastr.error('Not Added', 'Error');    });
   }
 
   ngAfterViewInit() {

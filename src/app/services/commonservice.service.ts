@@ -9,7 +9,9 @@ export class CommonserviceService {
   token:any= localStorage.getItem("token")
   constructor(private router: Router, private http: ApiserviceService) {
    }
-   getToken(): string {
+
+   
+  getToken(): string {
     return window.localStorage['token']
   }
 
