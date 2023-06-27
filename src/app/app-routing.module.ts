@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes  = [
   {
@@ -18,17 +19,17 @@ const routes: Routes  = [
   {
     path: 'dashboard',
     component:ReciepeComponent,
-    // canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: 'add-recipe',
     component:AddRecipeComponent,
-    // canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: 'editRecipe',
     component:EditRecipeComponent,
-    // canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   }
 ];
 

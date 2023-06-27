@@ -6,7 +6,12 @@
         <div class="col-sm-9">
             <ul class="d-flex menu" style="list-style: none;text-transform: uppercase; padding: 5px; float: right;">
                 <li routerLink="/dashboard">Home</li>
-                <li *ngIf="this.common?.token !==null" (click)="Logout()">Logout</li>
+
+                <li *ngIf="this.common?.token !==null" (click)="this.showop=!this.showop">
+                    <p style="margin-left:25px">{{user.name}}</p>
+                    <span class="btn btn-sm btn-danger mr-5" *ngIf="this.showop" (click)="Logout()">Logout</span>
+
+                </li>
                 <li *ngIf="this.common?.token == null" (click)="Logout()">Login</li>
             </ul>
         </div>
