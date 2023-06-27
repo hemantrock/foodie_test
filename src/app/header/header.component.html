@@ -1,0 +1,14 @@
+<div class="container-fluid" style="background: gainsboro;">
+    <div class="p-2 col-sm-12 d-flex">
+        <div class="col-sm-3">
+            <h1>Foodie</h1>
+        </div>
+        <div class="col-sm-9">
+            <ul class="d-flex menu" style="list-style: none;text-transform: uppercase; padding: 5px; float: right;">
+                <li routerLink="/dashboard">Home</li>
+                <li *ngIf="this.common?.token !==null" (click)="Logout()">Logout</li>
+                <li *ngIf="this.common?.token == null" (click)="Logout()">Login</li>
+            </ul>
+        </div>
+    </div>
+</div>

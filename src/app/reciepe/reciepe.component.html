@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="col-sm-12 p-2">
+        <div class="col-sm-12 d-flex" >
+            <div class="col-sm-2">
+                <h2> Reciepe List</h2>
+            </div>
+            <div class="offset-sm-8 col-sm-2">
+                <button class="btn btn-sm btn-primary" style="float:right;"  routerLink="/add-recipe">Add Reciepe</button>
+            </div>
+
+        </div>
+
+        <div class="col-sm-12">
+            <input class="form-control" matInput (keyup)="applyFilter($event)" placeholder="Filter">
+            <table mat-table [dataSource]="dataSource" matSort #sort="matSort">
+            <!-- <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)"> -->
+                <ng-container matColumnDef="Title">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="filter('title');this.filterdir=!this.filterdir;">Title</th>
+                    <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+                </ng-container>
+                <ng-container matColumnDef="Ingredients" >
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="filter('Ingredients'); this.filterdir=!this.filterdir;">Ingredients</th>
+                    <td mat-cell *matCellDef="let element">{{ element.ingredients }}</td>
+                </ng-container>
+                <ng-container matColumnDef="Instructions" >
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="filter('Instructions'); this.filterdir=!this.filterdir;">Instructions</th>
+                    <td mat-cell *matCellDef="let element">{{ element.instructions }}</td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button class="btn btn-sm btn-primary " style="margin-right:5px;" (click)="addtowishlist(element._id)">Add to Wishlist</button>
+                        <button class=" btn btn-sm btn-primary" (click)="edit(element)">Edit</button>
+                    </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="Image">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Image</th>
+                    <td mat-cell *matCellDef="let element">
+                        <img src="{{imgurl}}/{{element?.image}}" alt="Image  Not Found" onerror="this.src='https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-1.jpg'" style="width:100px;height:100px;">
+                    </td>
+                </ng-container> -->
+                <!-- Render the columns -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons  aria-label="Select page of periodic elements"></mat-paginator>
+
+        </div>
+
+    </div>
+</div>

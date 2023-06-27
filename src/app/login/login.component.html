@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="col-sm-12 row p-5">
+            <h1 class="text-center">Foodie App</h1>
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="User Name" class="form-control" required>
+                <p class="text-danger" *ngIf="submitted == true && username == '' "> User Name is Required</p>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Password" class="form-control" required>
+                <p class="text-danger" *ngIf="submitted == true && password== '' "> Password is Required</p>
+            </div>
+            <div class="form-group " >
+                <button type="submit" (click)="login()" class="btn  m-2 btn-primary">Login</button>
+                <p class="btn m-2 btn-primary" routerLink="/auth/signup">Register</p>
+            </div>
+    </div>
+</div>
