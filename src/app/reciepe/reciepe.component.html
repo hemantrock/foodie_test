@@ -31,7 +31,9 @@
                     <td mat-cell *matCellDef="let element">
                         <button class="btn btn-sm btn-primary " style="margin-right:5px;" (click)="addToWishlist(element?.title)">Add to Wishlist</button>
                         <!-- <button class="btn btn-sm btn-primary " style="margin-right:5px;" (click)="addtowishlist(element._id)">Add to Wishlist</button> -->
-                        <button class=" btn btn-sm btn-primary" (click)="edit(element)">Edit</button>
+                        <button class=" btn btn-sm btn-success" style="margin-right:5px;"  (click)="edit(element)">Edit</button>
+                        <button class=" btn btn-sm btn-info" (click)="shareOnWhatsApp(element?.title)">Share on WhatsApp</button>
+
                     </td>
                 </ng-container>
                 <!-- <ng-container matColumnDef="Image">

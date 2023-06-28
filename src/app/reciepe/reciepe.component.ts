@@ -127,4 +127,10 @@ export class ReciepeComponent implements OnInit{
     localStorage.setItem("edit_p",JSON.stringify(data));
     this.router.navigateByUrl("/editRecipe")
   }
+
+  shareOnWhatsApp(text:any) {
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
+    window.open(whatsappUrl, '_blank');
+  }
 }
